@@ -1,0 +1,11 @@
+version: '3'
+services:
+  h2:
+    image: h2database/h2:latest
+    restart: always
+    environment:
+      - H2_OPTIONS=-tcpAllowOthers
+    ports:
+      - "8082:8082"
+    volumes:
+      - ./data:/var/lib/h2
