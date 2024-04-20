@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const ContactList = () => {
     const [contacts, setContacts] = useState([]);
@@ -13,6 +14,9 @@ const ContactList = () => {
     });
     const [editingContact, setEditingContact] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
+    const [sortOrder, setSortOrder] = useState('asc');
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage] = useState(10);
 
     useEffect(() => {
         fetchContacts();
@@ -26,6 +30,22 @@ const ContactList = () => {
             console.error('Error fetching contacts:', error);
         }
     };
+
+    const sortedContacts = contacts.sort((a, b) => {
+        const fieldA = a.firstName.toLowerCase();
+        const fieldB = b.firstName.toLowerCase();
+
+        if (fieldA < fieldB) return sortOrder === 'asc' ? -1 : 1;
+        if (fieldA > fieldB) return sortOrder === 'asc' ? 1 : -1;
+        return 0;
+    });
+
+    const handleSortByField = (field) => {
+        // Implement sorting logic based on the selected field
+    };
+
+
+
 
     const handleInputChange = (e) => {
 
@@ -63,6 +83,12 @@ const ContactList = () => {
             value.toString().toLowerCase().includes(searchTerm.toLowerCase())
         )
     );
+
+    const indexOfLastContact = currentPage * itemsPerPage;
+    const indexOfFirstContact = indexOfLastContact - itemsPerPage;
+    const currentContacts = filteredContacts.slice(indexOfFirstContact, indexOfLastContact);
+
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
     const handleUpdateContact = async (contact) => {
         try {
@@ -102,7 +128,7 @@ const ContactList = () => {
                 onChange={handleSearchChange}
             />
             <ul>
-                {filteredContacts.map((contact) => (
+                {currentContacts.map((contact) => (
                     <li key={contact.id}>
                         {editingContact && editingContact.id === contact.id ? (
                             <>
@@ -152,7 +178,11 @@ const ContactList = () => {
                             </>
                         ) : (
                             <>
-                                {contact.firstName} {contact.lastName} - {contact.phoneNumber}
+                                <Link to={`/contacts/${contact.id}`}>
+                                    <div>
+                                        {contact.firstName} {contact.lastName} - {contact.phoneNumber}
+                                    </div>
+                                </Link>
                                 <button onClick={() => setEditingContact(contact)}>Update</button>
                                 <button onClick={() => handleDeleteContact(contact.id)}>Delete</button>
                             </>
@@ -160,6 +190,17 @@ const ContactList = () => {
                     </li>
                 ))}
             </ul>
+            <div>
+                <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
+                    Previous
+                </button>
+                <button
+                    onClick={() => paginate(currentPage + 1)}
+                    disabled={indexOfLastContact >= filteredContacts.length}
+                >
+                    Next
+                </button>
+            </div>
             <h2>Add Contact</h2>
             <input
                 name="oib"

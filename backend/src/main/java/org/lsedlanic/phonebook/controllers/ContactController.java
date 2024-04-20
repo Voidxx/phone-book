@@ -18,13 +18,12 @@ public class ContactController {
     private ContactService contactService;
 
     @PostMapping
-    public ResponseEntity<?> addContact(@RequestBody Contact contact) {
+    public Contact addContact(@RequestBody Contact contact) {
 
         try {
-            contactService.addContact(contact);
-            return new ResponseEntity<>("Contact added successfully with the id: " + contact.getId(), HttpStatus.OK);
+            return contactService.addContact(contact);
         } catch (Exception e) {
-            return new ResponseEntity<>("Contact not added", HttpStatus.NOT_FOUND);
+            return null;
         }
     }
 
