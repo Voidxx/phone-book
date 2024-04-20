@@ -18,6 +18,10 @@ public class Contact {
         return oib;
     }
 
+    public String getId(){
+        return id;
+    }
+
     public void setOib(Integer oib) {
         this.oib = oib;
     }
