@@ -1,10 +1,26 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import './styles.css';
 import ContactList from './ContactList';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import ContactDetails from "./ContactDetails";
+import { createRoot } from "react-dom/client";
 
-ReactDOM.render(
+const App = () => {
+    return (
+        <Router>
+            <Routes>
+                <Route path="/" element={<ContactList />} />
+                <Route path="/contacts/:id" element={<ContactDetails />} />
+            </Routes>
+        </Router>
+    );
+};
+
+const container = document.getElementById('root');
+const root = createRoot(container);
+
+root.render(
     <React.StrictMode>
-        <ContactList />
+        <App />
     </React.StrictMode>,
-    document.getElementById('root')
 );

@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
+import ContactModalContent from './ContactModalContent';
+import Modal from './Modal';
 
 const ContactList = () => {
     const [contacts, setContacts] = useState([]);
@@ -12,11 +15,32 @@ const ContactList = () => {
         phoneNumber: '',
     });
     const [editingContact, setEditingContact] = useState(null);
+
     const [searchTerm, setSearchTerm] = useState('');
+
+    const [sortOrder, setSortOrder] = useState('asc');
+
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage] = useState(10);
+
+    const [showDropdown, setShowDropdown] = useState(false);
+
+    const [showModal, setShowModal] = useState(false);
+    const [modalContent, setModalContent] = useState(null);
+    const [modalKey, setModalKey] = useState(0);
+
+    const editIcon = '/edit-icon-png-3587.png';
+    const deleteIcon = '/trash-can-icon-28680.png';
+    const EditIcon = () => <img src={editIcon} alt="Edit" />;
+    const DeleteIcon = () => <img src={deleteIcon} alt="Delete" />;
 
     useEffect(() => {
         fetchContacts();
     }, []);
+
+    const toggleDropdown = () => {
+        setShowDropdown(!showDropdown);
+    };
 
     const fetchContacts = async () => {
         try {
@@ -27,17 +51,23 @@ const ContactList = () => {
         }
     };
 
-    const handleInputChange = (e) => {
+    const sortedContacts = contacts.sort((a, b) => {
+        const fieldA = a.firstName.toLowerCase();
+        const fieldB = b.firstName.toLowerCase();
 
-        if (editingContact) {
-            console.log(e.target.name, e.target.value);
-            setEditingContact({ ...editingContact, [e.target.name]: e.target.value });
-        } else {
-            setNewContact({ ...newContact, [e.target.name]: e.target.value });
-        }
+        if (fieldA < fieldB) return sortOrder === 'asc' ? -1 : 1;
+        if (fieldA > fieldB) return sortOrder === 'asc' ? 1 : -1;
+        return 0;
+    });
+
+    const handleSortByField = (field) => {
+        // Implement sorting logic based on the selected field
     };
 
-    const handleAddContact = async () => {
+
+
+
+    const handleAddContact = async (newContact) => {
         try {
             const response = await axios.post('http://localhost:8080/api/contacts', newContact);
             setContacts([...contacts, response.data]);
@@ -49,6 +79,7 @@ const ContactList = () => {
                 city: '',
                 phoneNumber: '',
             });
+            handleCloseModal();
         } catch (error) {
             console.error('Error adding contact:', error);
         }
@@ -64,23 +95,48 @@ const ContactList = () => {
         )
     );
 
+    const indexOfLastContact = currentPage * itemsPerPage;
+    const indexOfFirstContact = indexOfLastContact - itemsPerPage;
+    const currentContacts = filteredContacts.slice(indexOfFirstContact, indexOfLastContact);
+
+    const paginate = (pageNumber) => setCurrentPage(pageNumber);
+
     const handleUpdateContact = async (contact) => {
         try {
-            const updatedContact = { ...contact };
-            updatedContact.id = editingContact.id;
-            updatedContact.oib = editingContact.oib;
-            updatedContact.firstName = editingContact.firstName;
-            updatedContact.lastName = editingContact.lastName;
-            updatedContact.adress = editingContact.adress;
-            updatedContact.city = editingContact.city;
-            updatedContact.phoneNumber = editingContact.phoneNumber;
-            console.log(updatedContact);
-            const response = await axios.put(`http://localhost:8080/api/contacts/${contact.id}`, updatedContact);
+            const response = await axios.put(`http://localhost:8080/api/contacts/${contact.id}`, contact);
             setContacts(contacts.map((c) => (c.id === contact.id ? response.data : c)));
             setEditingContact(null);
+            handleCloseModal();
         } catch (error) {
             console.error('Error updating contact:', error);
         }
+    };
+
+    const openModalForAdding = () => {
+        setModalContent({
+            onSubmit: handleAddContact,
+            initialContact: null,
+        });
+        handleOpenModal();
+    };
+
+
+    const openModalForUpdating = (contact) => {
+        setModalContent({
+            onSubmit: handleUpdateContact,
+            initialContact: contact,
+        });
+        handleOpenModal();
+    };
+
+    const handleOpenModal = () => {
+        setShowModal(true);
+        setModalKey(prevKey => prevKey + 1);
+    };
+
+    const handleCloseModal = () => {
+        setShowModal(false);
+        setModalKey(prevKey => prevKey + 1);
     };
 
     const handleDeleteContact = async (id) => {
@@ -92,6 +148,42 @@ const ContactList = () => {
         }
     };
 
+    const handleExportContacts = async () => {
+        try {
+            const response = await axios.get('http://localhost:8080/api/contacts/export', { responseType: 'blob' });
+            const url = window.URL.createObjectURL(new Blob([response.data]));
+            const link = document.createElement('a');
+            link.href = url;
+            link.setAttribute('download', 'contacts.csv');
+            document.body.appendChild(link);
+            link.click();
+        } catch (error) {
+            console.error('Error exporting contacts:', error);
+        }
+    };
+
+    const handleImportContacts = async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        try {
+            const response = await axios.post('http://localhost:8080/api/contacts/import', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            console.log(response.data);
+            fetchContacts();
+        } catch (error) {
+            console.error('Error importing contacts:', error);
+        }
+    };
+
+
+
     return (
         <div>
             <h1>Contact List</h1>
@@ -101,103 +193,56 @@ const ContactList = () => {
                 value={searchTerm}
                 onChange={handleSearchChange}
             />
-            <ul>
-                {filteredContacts.map((contact) => (
-                    <li key={contact.id}>
-                        {editingContact && editingContact.id === contact.id ? (
+            <div className="actions-container">
+                <div className={`dropdown ${showDropdown ? 'open' : ''}`}>
+                    <button className="dropdown-toggle" onClick={toggleDropdown}>
+                        Actions <span className="caret"></span>
+                    </button>
+                    {showDropdown && (
+                        <div className="dropdown-menu">
+                            <button onClick={openModalForAdding}>Add Contact</button>
+                            <button onClick={handleExportContacts}>Export Contacts</button>
+                            <label htmlFor="importFile" className="import-label">
+                                Import Contacts
+                                <input type="file" id="importFile" onChange={handleImportContacts}
+                                       className="import-file"/>
+                            </label>
+                        </div>
+                    )}
+                </div>
+            </div>
+            <div className="contact-list-container">
+                {currentContacts.map((contact) => (
+                    <div key={contact.id} className="contact-item">
                             <>
-                                <input
-                                    name="oib"
-                                    placeholder="OIB"
-                                    value={editingContact ? editingContact.oib : ''}
-                                    onChange={handleInputChange}
-                                />
-
-                                <input
-                                    name="firstName"
-                                    placeholder="First Name"
-                                    value={editingContact ? editingContact.firstName : ''}
-                                    onChange={handleInputChange}
-                                />
-
-                                <input
-                                    name="lastName"
-                                    placeholder="Last Name"
-                                    value={editingContact ? editingContact.lastName : ''}
-                                    onChange={handleInputChange}
-                                />
-
-                                <input
-                                    name="adress"
-                                    placeholder="Address"
-                                    value={editingContact ? editingContact.adress : ''}
-                                    onChange={handleInputChange}
-                                />
-
-                                <input
-                                    name="city"
-                                    placeholder="City"
-                                    value={editingContact ? editingContact.city : ''}
-                                    onChange={handleInputChange}
-                                />
-
-                                <input
-                                    name="phoneNumber"
-                                    placeholder="Phone Number"
-                                    value={editingContact ? editingContact.phoneNumber : ''}
-                                    onChange={handleInputChange}
-                                />
-                                <button onClick={() => handleUpdateContact(contact)}>Save</button>
-                                <button onClick={() => setEditingContact(null)}>Cancel</button>
+                                <Link to={`/contacts/${contact.id}`}>
+                                    <div>
+                                        {contact.firstName} {contact.lastName}
+                                    </div>
+                                </Link>
+                                <button onClick={() => openModalForUpdating(contact)}><EditIcon /></button>
+                                <button onClick={() => handleDeleteContact(contact.id)}><DeleteIcon /></button>
                             </>
-                        ) : (
-                            <>
-                                {contact.firstName} {contact.lastName} - {contact.phoneNumber}
-                                <button onClick={() => setEditingContact(contact)}>Update</button>
-                                <button onClick={() => handleDeleteContact(contact.id)}>Delete</button>
-                            </>
-                        )}
-                    </li>
+                    </div>
                 ))}
-            </ul>
-            <h2>Add Contact</h2>
-            <input
-                name="oib"
-                placeholder="OIB"
-                value={newContact.oib}
-                onChange={handleInputChange}
-            />
-            <input
-                name="firstName"
-                placeholder="First Name"
-                value={newContact.firstName}
-                onChange={handleInputChange}
-            />
-            <input
-                name="lastName"
-                placeholder="Last Name"
-                value={newContact.lastName}
-                onChange={handleInputChange}
-            />
-            <input
-                name="adress"
-                placeholder="Address"
-                value={newContact.adress}
-                onChange={handleInputChange}
-            />
-            <input
-                name="city"
-                placeholder="City"
-                value={newContact.city}
-                onChange={handleInputChange}
-            />
-            <input
-                name="phoneNumber"
-                placeholder="Phone Number"
-                value={newContact.phoneNumber}
-                onChange={handleInputChange}
-            />
-            <button onClick={handleAddContact}>Add Contact</button>
+            </div>
+            <div>
+                <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
+                    ←
+                </button>
+                <button
+                    onClick={() => paginate(currentPage + 1)}
+                    disabled={indexOfLastContact >= filteredContacts.length}
+                >
+                    →
+                </button>
+            </div>
+            <Modal isOpen={showModal} key={modalKey}
+                onClose={() => setShowModal(false)}
+            >
+                {modalContent && <ContactModalContent {...modalContent} />}
+            </Modal>
+
         </div>
     );
 };

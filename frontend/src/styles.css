@@ -1,0 +1,249 @@
+/* Color Palette */
+:root {
+    --primary-color: #4CAF50; /* Green */
+    --secondary-color: #2196F3; /* Blue */
+    --background-color: #F5F5F5; /* Light Gray */
+    --text-color: #333333; /* Dark Gray */
+}
+
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+}
+
+/* Header Styles */
+h1 {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Search Input Styles */
+input[type="text"] {
+    padding: 10px;
+    border: 1px solid var(--secondary-color);
+    border-radius: 4px;
+    margin-bottom: 20px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Contact List Styles */
+ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+li {
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 10px;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+li:hover {
+    background-color: var(--background-color);
+}
+
+a {
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+a:hover {
+    color: var(--primary-color);
+}
+
+/* Button Styles */
+button {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin-left: 10px;
+    margin-right: 2px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button img {
+    width: 15px;
+    height: 15px;
+    padding: 5% 15%;
+    display: inline-block;
+    justify-content: center;
+}
+
+button:hover {
+    background-color: #0B7DDA;
+}
+
+/* Pagination Styles */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.pagination button {
+    margin: 0 5px;
+}
+
+/* Add Contact Form Styles */
+h2 {
+    margin-top: 40px;
+}
+
+input[type="text"],
+input[type="number"] {
+    margin-bottom: 10px;
+}
+
+.actions-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.dropdown {
+    position: relative;
+}
+
+.dropdown-toggle {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.caret {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: 5px;
+    vertical-align: middle;
+    border-top: 4px solid;
+    border-right: 4px solid transparent;
+    border-left: 4px solid transparent;
+}
+
+.dropdown-menu {
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    padding: 12px 16px;
+    z-index: 1;
+    right: 0;
+    transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+    opacity: 0;
+    transform: translateY(-10px);
+    pointer-events: none;
+}
+
+.dropdown.open .dropdown-menu {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.dropdown-menu button {
+    display: block;
+    width: 100%;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: left;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+
+
+.import-label {
+    display: block;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: left;
+    text-decoration: none;
+    font-size: 14px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-left: 10px;
+    margin-right: 2px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.import-file {
+    display: none;
+}
+
+/* Contact List Container */
+.contact-list-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Contact Item */
+.contact-item {
+    background-color: white;
+    padding: 20px;
+    margin: 10px;
+    border-radius: 4px;
+    display: flex;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    flex: 1 0 200px;
+    max-width: 200px;
+    max-height: 30px;
+    text-align: left;
+}
+
+input[type="text"], input[type="number"] {
+    padding: 10px;
+    border: 1px solid var(--secondary-color);
+    border-radius: 4px;
+    margin-bottom: 20px;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus, input[type="number"]:focus {
+    border-color: var(--primary-color);
+    outline: none;
+}
+
+.add-contact-form {
+    padding: 20px;
+    border: 1px solid var(--secondary-color);
+    border-radius: 4px;
+    margin-top: 20px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
