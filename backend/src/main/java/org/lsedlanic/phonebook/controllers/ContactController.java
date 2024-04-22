@@ -3,6 +3,7 @@ package org.lsedlanic.phonebook.controllers;
 
 import org.lsedlanic.phonebook.entities.Contact;
 import org.lsedlanic.phonebook.services.ContactService;
+import org.lsedlanic.phonebook.utils.ContactValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
@@ -13,7 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.Valid;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -26,7 +27,8 @@ public class ContactController {
     @Autowired
     private ContactService contactService;
 
-
+    @Autowired
+    private ContactValidator contactValidator;
 
     @GetMapping
     public List<Contact> getAllContacts() {
@@ -39,34 +41,35 @@ public class ContactController {
     }
 
     @PostMapping
-    public ResponseEntity<?> addContact(@Valid @RequestBody Contact contact, BindingResult bindingResult) {
+    public ResponseEntity<?> addContact(@RequestBody Contact contact, BindingResult bindingResult) {
+        contactValidator.validate(contact, bindingResult);
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body(bindingResult.getAllErrors());
-        }
-
-        try {
-            return ResponseEntity.ok(contactService.addContact(contact));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to add contact");
+        } else {
+            try {
+                return ResponseEntity.ok(contactService.addContact(contact));
+            } catch (Exception e) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to add contact");
+            }
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateContact(@PathVariable String id, @Valid @RequestBody Contact contact, BindingResult bindingResult) {
+    public ResponseEntity<?> updateContact(@PathVariable String id, @RequestBody Contact contact, BindingResult bindingResult) {
+        contactValidator.validate(contact, bindingResult);
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body(bindingResult.getAllErrors());
-        }
-
-        try {
-            Contact updatedContact = contactService.updateContact(id, contact);
-            return updatedContact != null ?
-                    ResponseEntity.ok(updatedContact) :
-                    ResponseEntity.notFound().build();
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update contact");
+        } else {
+            try {
+                Contact updatedContact = contactService.updateContact(id, contact);
+                return updatedContact != null ?
+                        ResponseEntity.ok(updatedContact) :
+                        ResponseEntity.notFound().build();
+            } catch (Exception e) {
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update contact");
+            }
         }
     }
-
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteContact(@PathVariable String id) {
         try {
@@ -110,5 +113,12 @@ public class ContactController {
         } catch (IOException e) {
             return ResponseEntity.badRequest().body("Failed to import contacts");
         }
+    }
+
+    @GetMapping("/sorted")
+    public List<Contact> getSortedContacts(
+            @RequestParam(defaultValue = "firstName") String sortField,
+            @RequestParam(defaultValue = "asc") String sortOrder) {
+        return contactService.getSortedContacts(sortField, sortOrder);
     }
 }

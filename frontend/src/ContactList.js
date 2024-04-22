@@ -19,6 +19,12 @@ const ContactList = () => {
     const [searchTerm, setSearchTerm] = useState('');
 
     const [sortOrder, setSortOrder] = useState('asc');
+    const sortFields = [
+        { label: 'First Name', value: 'firstName' },
+        { label: 'Last Name', value: 'lastName' },
+        { label: 'Phone Number', value: 'phoneNumber' },
+    ];
+    const [sortField, setSortField] = useState('firstName');
 
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(10);
@@ -36,7 +42,7 @@ const ContactList = () => {
 
     useEffect(() => {
         fetchContacts();
-    }, []);
+    }, [sortField, sortOrder]);
 
     const toggleDropdown = () => {
         setShowDropdown(!showDropdown);
@@ -44,24 +50,11 @@ const ContactList = () => {
 
     const fetchContacts = async () => {
         try {
-            const response = await axios.get('http://localhost:8080/api/contacts');
+            const response = await axios.get(`http://localhost:8080/api/contacts/sorted?sortField=${sortField}&sortOrder=${sortOrder}`);
             setContacts(response.data);
         } catch (error) {
             console.error('Error fetching contacts:', error);
         }
-    };
-
-    const sortedContacts = contacts.sort((a, b) => {
-        const fieldA = a.firstName.toLowerCase();
-        const fieldB = b.firstName.toLowerCase();
-
-        if (fieldA < fieldB) return sortOrder === 'asc' ? -1 : 1;
-        if (fieldA > fieldB) return sortOrder === 'asc' ? 1 : -1;
-        return 0;
-    });
-
-    const handleSortByField = (field) => {
-        // Implement sorting logic based on the selected field
     };
 
 
@@ -81,7 +74,28 @@ const ContactList = () => {
             });
             handleCloseModal();
         } catch (error) {
-            console.error('Error adding contact:', error);
+            if (error.response.data) {
+                const errorMessage = error.response.data[0].code;
+                alert(errorMessage);
+            } else {
+                console.error('Error adding contact:', error);
+            }
+        }
+    };
+
+    const handleUpdateContact = async (contact) => {
+        try {
+            const response = await axios.put(`http://localhost:8080/api/contacts/${contact.id}`, contact);
+            setContacts(contacts.map((c) => (c.id === contact.id ? response.data : c)));
+            setEditingContact(null);
+            handleCloseModal();
+        } catch (error) {
+            if (error.response.data) {
+                const errorMessage = error.response.data[0].code;
+                alert(errorMessage);
+            } else {
+                console.error('Error adding contact:', error);
+            }
         }
     };
 
@@ -101,16 +115,7 @@ const ContactList = () => {
 
     const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
-    const handleUpdateContact = async (contact) => {
-        try {
-            const response = await axios.put(`http://localhost:8080/api/contacts/${contact.id}`, contact);
-            setContacts(contacts.map((c) => (c.id === contact.id ? response.data : c)));
-            setEditingContact(null);
-            handleCloseModal();
-        } catch (error) {
-            console.error('Error updating contact:', error);
-        }
-    };
+
 
     const openModalForAdding = () => {
         setModalContent({
@@ -211,18 +216,46 @@ const ContactList = () => {
                     )}
                 </div>
             </div>
+            <div>
+                <label>Sort By:</label>
+                <select value={sortField} onChange={(e) => setSortField(e.target.value)}>
+                    {sortFields.map((field) => (
+                        <option key={field.value} value={field.value}>
+                            {field.label}
+                        </option>
+                    ))}
+                </select>
+                <label>
+                    <input
+                        type="radio"
+                        value="asc"
+                        checked={sortOrder === 'asc'}
+                        onChange={() => setSortOrder('asc')}
+                    />
+                    Ascending
+                </label>
+                <label>
+                    <input
+                        type="radio"
+                        value="desc"
+                        checked={sortOrder === 'desc'}
+                        onChange={() => setSortOrder('desc')}
+                    />
+                    Descending
+                </label>
+            </div>
             <div className="contact-list-container">
                 {currentContacts.map((contact) => (
                     <div key={contact.id} className="contact-item">
-                            <>
-                                <Link to={`/contacts/${contact.id}`}>
-                                    <div>
-                                        {contact.firstName} {contact.lastName}
-                                    </div>
-                                </Link>
-                                <button onClick={() => openModalForUpdating(contact)}><EditIcon /></button>
-                                <button onClick={() => handleDeleteContact(contact.id)}><DeleteIcon /></button>
-                            </>
+                        <>
+                            <Link to={`/contacts/${contact.id}`}>
+                                <div>
+                                    {contact.firstName} {contact.lastName}
+                                </div>
+                            </Link>
+                            <button onClick={() => openModalForUpdating(contact)}><EditIcon/></button>
+                            <button onClick={() => handleDeleteContact(contact.id)}><DeleteIcon/></button>
+                        </>
                     </div>
                 ))}
             </div>
@@ -238,7 +271,7 @@ const ContactList = () => {
                 </button>
             </div>
             <Modal isOpen={showModal} key={modalKey}
-                onClose={() => setShowModal(false)}
+                   onClose={() => setShowModal(false)}
             >
                 {modalContent && <ContactModalContent {...modalContent} />}
             </Modal>

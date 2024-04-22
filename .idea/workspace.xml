@@ -4,21 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="54422e19-cf60-4782-8c9e-5d35af5c3ecf" name="Changes" comment="- Added some validation and additional design for frontend">
-      <change afterPath="$PROJECT_DIR$/contacts.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/public/edit-icon-png-3587.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/public/trash-can-icon-28680.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/ContactModalContent.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/Modal.js" afterDir="false" />
+    <list default="true" id="54422e19-cf60-4782-8c9e-5d35af5c3ecf" name="Changes" comment="- Modified the validation to use Spring validator instead of javax.validator and alerts on frontend">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/org/lsedlanic/phonebook/controllers/ContactController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/org/lsedlanic/phonebook/controllers/ContactController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/org/lsedlanic/phonebook/entities/Contact.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/org/lsedlanic/phonebook/entities/Contact.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/org/lsedlanic/phonebook/services/ContactService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/org/lsedlanic/phonebook/services/ContactService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/org/lsedlanic/phonebook/controllers/ContactController.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/org/lsedlanic/phonebook/controllers/ContactController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/org/lsedlanic/phonebook/services/ContactService.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/org/lsedlanic/phonebook/services/ContactService.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/ContactList.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/ContactList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -108,7 +96,7 @@
       <updated>1713606265143</updated>
       <workItem from="1713606271036" duration="22897000" />
       <workItem from="1713779239075" duration="84000" />
-      <workItem from="1713779343668" duration="732000" />
+      <workItem from="1713779343668" duration="8275000" />
     </task>
     <task id="LOCAL−00001" summary="- Added web config for CORS&#10;- Added rest of the CRUD operations without design&#10;- Added HTTP responses to most requests">
       <option name="closed" value="true" />
@@ -138,7 +126,35 @@
       <option name="presentableId" value="LOCAL−00004" />
       <updated>1713649695160</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL−00005" summary="- Added details page for every contact and pagination + some styles">
+      <option name="closed" value="true" />
+      <created>1713780089490</created>
+      <option name="number" value="LOCAL−00005" />
+      <option name="presentableId" value="LOCAL−00005" />
+      <updated>1713780089490</updated>
+    </task>
+    <task id="LOCAL−00006" summary="- Modified the validation to use Spring validator instead of javax.validator and alerts on frontend">
+      <option name="closed" value="true" />
+      <created>1713788753267</created>
+      <option name="number" value="LOCAL−00006" />
+      <option name="presentableId" value="LOCAL−00006" />
+      <updated>1713788753268</updated>
+    </task>
+    <task id="LOCAL−00007" summary="- Modified the validation to use Spring validator instead of javax.validator and alerts on frontend">
+      <option name="closed" value="true" />
+      <created>1713788769146</created>
+      <option name="number" value="LOCAL−00007" />
+      <option name="presentableId" value="LOCAL−00007" />
+      <updated>1713788769146</updated>
+    </task>
+    <task id="LOCAL−00008" summary="- Modified the validation to use Spring validator instead of javax.validator and alerts on frontend">
+      <option name="closed" value="true" />
+      <created>1713788843376</created>
+      <option name="number" value="LOCAL−00008" />
+      <option name="presentableId" value="LOCAL−00008" />
+      <updated>1713788843376</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -157,8 +173,9 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="- Added web config for CORS&#10;- Added rest of the CRUD operations without design&#10;- Added HTTP responses to most requests" />
-    <MESSAGE value="- Added details page for every contact and pagination + some styles" />
     <MESSAGE value="- Added some validation and additional design for frontend" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Added some validation and additional design for frontend" />
+    <MESSAGE value="- Added some validation and additional design for frontend" />
+    <MESSAGE value="- Modified the validation to use Spring validator instead of javax.validator and alerts on frontend" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Modified the validation to use Spring validator instead of javax.validator and alerts on frontend" />
   </component>
 </project>

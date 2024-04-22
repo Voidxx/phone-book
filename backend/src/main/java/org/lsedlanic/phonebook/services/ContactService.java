@@ -12,6 +12,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.io.IOException;
@@ -85,7 +86,6 @@ public class ContactService {
         List<Contact> contacts = new ArrayList<>();
 
         try (BufferedReader reader = Files.newBufferedReader(filePath)) {
-            // Skip the header line
             reader.readLine();
 
             String line;
@@ -93,7 +93,7 @@ public class ContactService {
                 String[] data = line.split(",");
                 if (data.length == 6) {
                     Contact contact = new Contact();
-                    contact.setOib(Integer.parseInt(data[0].trim()));
+                    contact.setOib(Long.parseLong(data[0].trim()));
                     contact.setFirstName(data[1].trim());
                     contact.setLastName(data[2].trim());
                     contact.setAdress(data[3].trim());
@@ -109,6 +109,23 @@ public class ContactService {
         for (Contact contact : contacts) {
             addContact(contact);
         }
+    }
+
+    public List<Contact> getSortedContacts(String sortField, String sortOrder) {
+        List<Contact> contacts = getAllContacts();
+
+        Comparator<Contact> comparator = switch (sortField.toLowerCase()) {
+            case "lastname" -> Comparator.comparing(Contact::getLastName);
+            case "phonenumber" -> Comparator.comparing(Contact::getPhoneNumber);
+            default -> Comparator.comparing(Contact::getFirstName);
+        };
+
+        if (sortOrder.equalsIgnoreCase("desc")) {
+            comparator = comparator.reversed();
+        }
+
+        contacts.sort(comparator);
+        return contacts;
     }
 
 }
