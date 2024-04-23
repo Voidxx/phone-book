@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="54422e19-cf60-4782-8c9e-5d35af5c3ecf" name="Changes" comment="- Modified the validation to use Spring validator instead of javax.validator and alerts on frontend">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/ContactList.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/ContactList.js" afterDir="false" />
-    </list>
+    <list default="true" id="54422e19-cf60-4782-8c9e-5d35af5c3ecf" name="Changes" comment="- Modified the validation to use Spring validator instead of javax.validator and alerts on frontend" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -96,7 +93,11 @@
       <updated>1713606265143</updated>
       <workItem from="1713606271036" duration="22897000" />
       <workItem from="1713779239075" duration="84000" />
-      <workItem from="1713779343668" duration="8275000" />
+      <workItem from="1713779343668" duration="8329000" />
+      <workItem from="1713801216506" duration="48000" />
+      <workItem from="1713825873078" duration="4478000" />
+      <workItem from="1713863161026" duration="3721000" />
+      <workItem from="1713885911747" duration="1331000" />
     </task>
     <task id="LOCAL−00001" summary="- Added web config for CORS&#10;- Added rest of the CRUD operations without design&#10;- Added HTTP responses to most requests">
       <option name="closed" value="true" />
@@ -154,7 +155,14 @@
       <option name="presentableId" value="LOCAL−00008" />
       <updated>1713788843376</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL−00009" summary="- Modified the validation to use Spring validator instead of javax.validator and alerts on frontend">
+      <option name="closed" value="true" />
+      <created>1713788916853</created>
+      <option name="number" value="LOCAL−00009" />
+      <option name="presentableId" value="LOCAL−00009" />
+      <updated>1713788916853</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
