@@ -1,8 +1,8 @@
 /* Color Palette */
 :root {
-    --primary-color: #4CAF50; /* Green */
-    --secondary-color: #2196F3; /* Blue */
-    --background-color: #F5F5F5; /* Light Gray */
+    --primary-color: #003366; /* Deep Blue */
+    --secondary-color: #ff9900; /* Orange */
+    --background-color: #f2f2f2; /* Light Gray */
     --text-color: #333333; /* Dark Gray */
 }
 
@@ -68,10 +68,10 @@ button {
     padding: 5px 10px;
     text-align: center;
     text-decoration: none;
-    display: inline-block;
+    display: inline-flex;
     font-size: 14px;
-    margin-left: 10px;
-    margin-right: 2px;
+    margin-left: 5px;
+    margin-right: 5px;
     cursor: pointer;
     border-radius: 4px;
 }
@@ -85,19 +85,16 @@ button img {
 }
 
 button:hover {
-    background-color: #0B7DDA;
+    background-color: #ffb333;
 }
 
 /* Pagination Styles */
-.pagination {
+.pagination-container {
     display: flex;
     justify-content: center;
     margin-top: 20px;
 }
 
-.pagination button {
-    margin: 0 5px;
-}
 
 /* Add Contact Form Styles */
 h2 {
@@ -110,7 +107,7 @@ input[type="number"] {
 }
 
 .actions-container {
-    display: flex;
+    display: inline-flex;
     justify-content: flex-end;
     margin-bottom: 20px;
 }
@@ -120,7 +117,7 @@ input[type="number"] {
 }
 
 .dropdown-toggle {
-    background-color: #4CAF50;
+    background-color: var(--primary-color);
     color: white;
     border: none;
     padding: 10px 20px;
@@ -166,7 +163,7 @@ input[type="number"] {
 .dropdown-menu button {
     display: block;
     width: 100%;
-    background-color: #4CAF50;
+    background-color: var(--primary-color);
     color: white;
     border: none;
     padding: 10px 20px;
@@ -178,24 +175,6 @@ input[type="number"] {
     margin-bottom: 10px;
 }
 
-
-
-.import-label {
-    display: block;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    text-align: left;
-    text-decoration: none;
-    font-size: 14px;
-    cursor: pointer;
-    border-radius: 4px;
-    margin-left: 10px;
-    margin-right: 2px;
-    width: 100%;
-    box-sizing: border-box;
-}
 
 .import-file {
     display: none;
@@ -218,7 +197,7 @@ input[type="number"] {
     display: flex;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     flex: 1 0 200px;
-    max-width: 200px;
+    max-width: 150px;
     max-height: 30px;
     text-align: left;
 }
@@ -246,4 +225,124 @@ input[type="text"]:focus, input[type="number"]:focus {
     margin-top: 20px;
     background-color: white;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.contact-list-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 20px;
+    padding-right: 100px;
+    padding-left: 100px;
+    padding-bottom: 40px;
+}
+
+.contact-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.contact-card {
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 25%;
+    padding: 20px;
+    display: grid;
+    align-items: flex-end;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.contact-card:hover {
+    background-color: rgba(255, 255, 255, 1);
+}
+.contact-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 2rem;
+    font-weight: bold;
+    margin-right: 1rem;
+    overflow: hidden;
+}
+.contact-info {
+    flex-grow: 1;
+}
+
+.contact-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.contact-actions button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.contact-actions button img {
+    width: 20px;
+    height: 20px;
+}
+
+.sort-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.sort-select {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-right: 10px;
+}
+
+.sort-order {
+    display: flex;
+}
+
+.sort-order-button {
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #333;
+    padding: 6px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.sort-order-button:hover,
+.sort-order-button.active {
+    background-color: #e0e0e0;
+}
+
+.sort-order-button i {
+    margin-right: 5px;
+}
+
+.modal-title {
+    margin-top: 40px;
+}
+
+.form-input {
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.submit-button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
 }

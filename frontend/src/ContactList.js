@@ -16,6 +16,8 @@ const ContactList = () => {
     });
     const [editingContact, setEditingContact] = useState(null);
 
+
+    const [searchQuery, setSearchQuery] = useState('');
     const [searchTerm, setSearchTerm] = useState('');
 
     const [sortOrder, setSortOrder] = useState('asc');
@@ -29,11 +31,18 @@ const ContactList = () => {
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(10);
 
+    const [page, setPage] = useState(0);
+    const [size, setSize] = useState(10);
+    const [totalPages, setTotalPages] = useState(0);
+
     const [showDropdown, setShowDropdown] = useState(false);
 
     const [showModal, setShowModal] = useState(false);
     const [modalContent, setModalContent] = useState(null);
     const [modalKey, setModalKey] = useState(0);
+
+    const [imageUrls, setImageUrls] = useState({});
+
 
     const editIcon = '/edit-icon-png-3587.png';
     const deleteIcon = '/trash-can-icon-28680.png';
@@ -42,22 +51,49 @@ const ContactList = () => {
 
     useEffect(() => {
         fetchContacts();
-    }, [sortField, sortOrder]);
-
+    }, [sortField, sortOrder, page, size, searchQuery]);
     const toggleDropdown = () => {
         setShowDropdown(!showDropdown);
     };
 
     const fetchContacts = async () => {
         try {
-            const response = await axios.get(`http://localhost:8080/api/contacts/sorted?sortField=${sortField}&sortOrder=${sortOrder}`);
-            setContacts(response.data);
+            const response = await axios.get(`http://localhost:8080/api/contacts?query=${searchQuery}&page=${page}&size=${size}&sortField=${sortField}&sortOrder=${sortOrder}`);
+            setContacts(response.data.content);
+            setTotalPages(response.data.totalPages);
+
+            const imageUrlPromises = response.data.content.map(async (contact) => {
+                if (contact.image) {
+                    if (typeof contact.image === 'string') {
+                        return { id: contact.id, imageUrl: `data:image/jpeg;base64,${contact.image}` };
+                    } else {
+                        const imageBlob = new Blob([contact.image.data], { type: 'image/jpeg' });
+                        const imageUrl = URL.createObjectURL(imageBlob);
+                        return { id: contact.id, imageUrl };
+                    }
+                } else {
+                    return { id: contact.id, imageUrl: null };
+                }
+            });
+
+            const imageUrlData = await Promise.all(imageUrlPromises);
+            const imageUrlMap = Object.fromEntries(imageUrlData.map(({ id, imageUrl }) => [id, imageUrl]));
+            setImageUrls(imageUrlMap);
         } catch (error) {
             console.error('Error fetching contacts:', error);
         }
     };
 
-
+    const getInitials = (contact) => {
+        const imageUrl = imageUrls[contact.id];
+        if (imageUrl) {
+            return <img src={imageUrl} alt="Contact Avatar" />;
+        } else {
+            const firstName = contact.firstName ? contact.firstName.charAt(0).toUpperCase() : '';
+            const lastName = contact.lastName ? contact.lastName.charAt(0).toUpperCase() : '';
+            return `${firstName}${lastName}`;
+        }
+    };
 
 
     const handleAddContact = async (newContact) => {
@@ -113,7 +149,6 @@ const ContactList = () => {
     const indexOfFirstContact = indexOfLastContact - itemsPerPage;
     const currentContacts = filteredContacts.slice(indexOfFirstContact, indexOfLastContact);
 
-    const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
 
 
@@ -148,6 +183,7 @@ const ContactList = () => {
         try {
             await axios.delete(`http://localhost:8080/api/contacts/${id}`);
             setContacts(contacts.filter((contact) => contact.id !== id));
+            fetchContacts();
         } catch (error) {
             console.error('Error deleting contact:', error);
         }
@@ -195,10 +231,34 @@ const ContactList = () => {
             <input
                 type="text"
                 placeholder="Search contacts..."
-                value={searchTerm}
-                onChange={handleSearchChange}
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
             />
             <div className="actions-container">
+                <div className="sort-container">
+                    <label>Sort By:</label>
+                    <select value={sortField} onChange={(e) => setSortField(e.target.value)} className="sort-select">
+                        {sortFields.map((field) => (
+                            <option key={field.value} value={field.value}>
+                                {field.label}
+                            </option>
+                        ))}
+                    </select>
+                    <div className="sort-order">
+                        <button
+                            className={`sort-order-button ${sortOrder === 'asc' ? 'active' : ''}`}
+                            onClick={() => setSortOrder('asc')}
+                        >↑
+                            <i className="fas fa-sort-up"></i>
+                        </button>
+                        <button
+                            className={`sort-order-button ${sortOrder === 'desc' ? 'active' : ''}`}
+                            onClick={() => setSortOrder('desc')}
+                        >↓
+                            <i className="fas fa-sort-down"></i>
+                        </button>
+                    </div>
+                </div>
                 <div className={`dropdown ${showDropdown ? 'open' : ''}`}>
                     <button className="dropdown-toggle" onClick={toggleDropdown}>
                         Actions <span className="caret"></span>
@@ -207,66 +267,46 @@ const ContactList = () => {
                         <div className="dropdown-menu">
                             <button onClick={openModalForAdding}>Add Contact</button>
                             <button onClick={handleExportContacts}>Export Contacts</button>
-                            <label htmlFor="importFile" className="import-label">
+                            <button>
                                 Import Contacts
                                 <input type="file" id="importFile" onChange={handleImportContacts}
                                        className="import-file"/>
-                            </label>
+                            </button>
                         </div>
                     )}
                 </div>
             </div>
-            <div>
-                <label>Sort By:</label>
-                <select value={sortField} onChange={(e) => setSortField(e.target.value)}>
-                    {sortFields.map((field) => (
-                        <option key={field.value} value={field.value}>
-                            {field.label}
-                        </option>
-                    ))}
-                </select>
-                <label>
-                    <input
-                        type="radio"
-                        value="asc"
-                        checked={sortOrder === 'asc'}
-                        onChange={() => setSortOrder('asc')}
-                    />
-                    Ascending
-                </label>
-                <label>
-                    <input
-                        type="radio"
-                        value="desc"
-                        checked={sortOrder === 'desc'}
-                        onChange={() => setSortOrder('desc')}
-                    />
-                    Descending
-                </label>
-            </div>
             <div className="contact-list-container">
-                {currentContacts.map((contact) => (
-                    <div key={contact.id} className="contact-item">
-                        <>
-                            <Link to={`/contacts/${contact.id}`}>
-                                <div>
-                                    {contact.firstName} {contact.lastName}
-                                </div>
-                            </Link>
-                            <button onClick={() => openModalForUpdating(contact)}><EditIcon/></button>
-                            <button onClick={() => handleDeleteContact(contact.id)}><DeleteIcon/></button>
-                        </>
+                {contacts.map((contact) => (
+                    <div className="contact-card">
+                        <Link key={contact.id} to={`/contacts/${contact.id}`} className="contact-link">
+                            <div className="contact-avatar">
+                                {getInitials(contact)}
+                            </div>
+                            <div className="contact-info">
+                                <h3>{`${contact.firstName} ${contact.lastName}`}</h3>
+                                <p>{contact.phoneNumber}</p>
+                            </div>
+                        </Link>
+                        <div className="contact-actions">
+                            <button onClick={() => openModalForUpdating(contact)}>
+                                <EditIcon/>
+                            </button>
+                            <button onClick={() => handleDeleteContact(contact.id)}>
+                                <DeleteIcon/>
+                            </button>
+                        </div>
                     </div>
                 ))}
             </div>
-            <div>
-                <button onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1}>
+            <div className="pagination-container">
+                <button onClick={() => setPage(page - 1)} disabled={page === 0}>
                     ←
                 </button>
-                <button
-                    onClick={() => paginate(currentPage + 1)}
-                    disabled={indexOfLastContact >= filteredContacts.length}
-                >
+                <span>
+    Page {page + 1} of {totalPages}
+  </span>
+                <button onClick={() => setPage(page + 1)} disabled={page === totalPages - 1}>
                     →
                 </button>
             </div>

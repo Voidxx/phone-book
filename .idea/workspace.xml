@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="54422e19-cf60-4782-8c9e-5d35af5c3ecf" name="Changes" comment="- Modified the validation to use Spring validator instead of javax.validator and alerts on frontend">
+    <list default="true" id="54422e19-cf60-4782-8c9e-5d35af5c3ecf" name="Changes" comment="- Overhauled design and added image upload functionality + changes to details page + moved pagination and search functionalities to backend">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/ContactList.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/ContactList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/ContactModalContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/ContactModalContent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +97,12 @@
       <updated>1713606265143</updated>
       <workItem from="1713606271036" duration="22897000" />
       <workItem from="1713779239075" duration="84000" />
-      <workItem from="1713779343668" duration="8275000" />
+      <workItem from="1713779343668" duration="8329000" />
+      <workItem from="1713801216506" duration="48000" />
+      <workItem from="1713825873078" duration="4478000" />
+      <workItem from="1713863161026" duration="3721000" />
+      <workItem from="1713885911747" duration="1331000" />
+      <workItem from="1713887833209" duration="855000" />
     </task>
     <task id="LOCAL−00001" summary="- Added web config for CORS&#10;- Added rest of the CRUD operations without design&#10;- Added HTTP responses to most requests">
       <option name="closed" value="true" />
@@ -154,7 +160,21 @@
       <option name="presentableId" value="LOCAL−00008" />
       <updated>1713788843376</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL−00009" summary="- Modified the validation to use Spring validator instead of javax.validator and alerts on frontend">
+      <option name="closed" value="true" />
+      <created>1713788916853</created>
+      <option name="number" value="LOCAL−00009" />
+      <option name="presentableId" value="LOCAL−00009" />
+      <updated>1713788916853</updated>
+    </task>
+    <task id="LOCAL−00010" summary="- Overhauled design and added image upload functionality + changes to details page + moved pagination and search functionalities to backend">
+      <option name="closed" value="true" />
+      <created>1713888048747</created>
+      <option name="number" value="LOCAL−00010" />
+      <option name="presentableId" value="LOCAL−00010" />
+      <updated>1713888048747</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -176,6 +196,7 @@
     <MESSAGE value="- Added some validation and additional design for frontend" />
     <MESSAGE value="- Added some validation and additional design for frontend" />
     <MESSAGE value="- Modified the validation to use Spring validator instead of javax.validator and alerts on frontend" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Modified the validation to use Spring validator instead of javax.validator and alerts on frontend" />
+    <MESSAGE value="- Overhauled design and added image upload functionality + changes to details page + moved pagination and search functionalities to backend" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Overhauled design and added image upload functionality + changes to details page + moved pagination and search functionalities to backend" />
   </component>
 </project>

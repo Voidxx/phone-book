@@ -1,0 +1,120 @@
+.contact-details-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.contact-details-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.contact-details-container .contact-avatar {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-color: #ccc;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    font-weight: bold;
+    margin-right: 2rem;
+    overflow: hidden;
+    position: relative;
+}
+
+.contact-details-container .contact-avatar::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+    opacity: 0.5;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.contact-details-container .contact-avatar:hover::before {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+.contact-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.contact-details-body p {
+    margin: 10px 0;
+}
+
+.image-upload {
+    margin-bottom: 20px;
+}
+
+.upload-button {
+    background-color: #003366;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.upload-button:hover {
+    background-color: #002244;
+}
+
+.contact-name-container {
+    display: flex;
+    align-items: center;
+}
+
+.contact-name {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #003366;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin: 0;
+}
+
+
+.contact-subActions {
+    margin-bottom: 20px;
+}
+
+.call-button, .message-button {
+    background-color: #003366;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.call-button:hover, .message-button:hover {
+    background-color: #002244;
+}
+
+.back-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.back-link a {
+    color: #003366; /* Deep Blue */
+    text-decoration: none;
+}
+
+.back-link a:hover {
+    color: #ff9900; /* Orange */
+}

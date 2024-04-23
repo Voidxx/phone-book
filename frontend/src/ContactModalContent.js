@@ -1,4 +1,5 @@
 import React from 'react';
+
 const ContactModalContent = ({ onSubmit, initialContact = null }) => {
     const [contact, setContact] = React.useState(initialContact || {
         oib: '',
@@ -18,15 +19,65 @@ const ContactModalContent = ({ onSubmit, initialContact = null }) => {
         onSubmit(contact);
     };
 
+    const title = initialContact ? 'Update Contact' : 'Add Contact';
+
     return (
         <form onSubmit={handleSubmit}>
-            <input name="oib" placeholder="OIB" value={contact.oib} onChange={handleInputChange} required />
-            <input name="firstName" placeholder="First Name" value={contact.firstName} onChange={handleInputChange} required />
-            <input name="lastName" placeholder="Last Name" value={contact.lastName} onChange={handleInputChange} required />
-            <input name="adress" placeholder="Address" value={contact.adress} onChange={handleInputChange} required />
-            <input name="city" placeholder="City" value={contact.city} onChange={handleInputChange} required />
-            <input name="phoneNumber" placeholder="Phone Number" value={contact.phoneNumber} onChange={handleInputChange} required />
-            <button type="submit">{initialContact ? 'Update Contact' : 'Add Contact'}</button>
+            <h2 className="modal-title">{title}</h2>
+            <input
+                name="oib"
+                placeholder="OIB"
+                value={contact.oib}
+                onChange={handleInputChange}
+                required
+                className="form-input"
+            />
+            <input
+                name="firstName"
+                placeholder="First Name"
+                value={contact.firstName}
+                onChange={handleInputChange}
+                required
+                className="form-input"
+            />
+            <input
+                name="lastName"
+                placeholder="Last Name"
+                value={contact.lastName}
+                onChange={handleInputChange}
+                required
+                className="form-input"
+            />
+            <input
+                name="adress"
+                placeholder="Address"
+                value={contact.adress}
+                onChange={handleInputChange}
+                required
+                className="form-input"
+            />
+            <input
+                name="city"
+                placeholder="City"
+                value={contact.city}
+                onChange={handleInputChange}
+                required
+                className="form-input"
+            />
+            <input
+                name="phoneNumber"
+                placeholder="Phone Number"
+                value={contact.phoneNumber}
+                onChange={handleInputChange}
+                required
+                className="form-input"
+            />
+            <button
+                type="submit"
+                className="submit-button"
+            >
+                {title}
+            </button>
         </form>
     );
 };

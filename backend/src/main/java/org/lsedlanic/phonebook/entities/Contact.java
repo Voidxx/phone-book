@@ -15,6 +15,8 @@ public class Contact {
     private String city;
     private String phoneNumber;
 
+    private byte[] image;
+
     public Long getOib() {
         return oib;
     }
@@ -65,5 +67,13 @@ public class Contact {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 }
