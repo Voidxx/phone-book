@@ -4,18 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="54422e19-cf60-4782-8c9e-5d35af5c3ecf" name="Changes" comment="- fixed typo">
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+    <list default="true" id="54422e19-cf60-4782-8c9e-5d35af5c3ecf" name="Changes" comment="- Modified search and sort to use Predicates, added lombok,">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/db/docker-compose.yml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/db/docker-compose.yml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/org/lsedlanic/phonebook/controllers/ContactController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/org/lsedlanic/phonebook/controllers/ContactController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/org/lsedlanic/phonebook/entities/Contact.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/org/lsedlanic/phonebook/entities/Contact.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/org/lsedlanic/phonebook/repositories/ContactRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/org/lsedlanic/phonebook/repositories/ContactRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/org/lsedlanic/phonebook/services/ContactService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/org/lsedlanic/phonebook/services/ContactService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/org/lsedlanic/phonebook/entities/Contact.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/org/lsedlanic/phonebook/entities/Contact.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/org/lsedlanic/phonebook/controllers/ContactController.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/org/lsedlanic/phonebook/controllers/ContactController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/target/classes/org/lsedlanic/phonebook/services/ContactService.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/org/lsedlanic/phonebook/services/ContactService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/target/classes/org/lsedlanic/phonebook/utils/ContactValidator.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/org/lsedlanic/phonebook/utils/ContactValidator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/ContactList.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/ContactList.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -123,7 +118,7 @@
       <workItem from="1713885911747" duration="1331000" />
       <workItem from="1713887833209" duration="855000" />
       <workItem from="1713955497908" duration="1194000" />
-      <workItem from="1713971829976" duration="10169000" />
+      <workItem from="1713971829976" duration="11962000" />
     </task>
     <task id="LOCAL−00001" summary="- Added web config for CORS&#10;- Added rest of the CRUD operations without design&#10;- Added HTTP responses to most requests">
       <option name="closed" value="true" />
@@ -209,7 +204,21 @@
       <option name="presentableId" value="LOCAL−00012" />
       <updated>1713983576557</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL−00013" summary="- Modified search and sort to use Predicates, added lombok,">
+      <option name="closed" value="true" />
+      <created>1713988182609</created>
+      <option name="number" value="LOCAL−00013" />
+      <option name="presentableId" value="LOCAL−00013" />
+      <updated>1713988182610</updated>
+    </task>
+    <task id="LOCAL−00014" summary="- Modified search and sort to use Predicates, added lombok,">
+      <option name="closed" value="true" />
+      <created>1713988418792</created>
+      <option name="number" value="LOCAL−00014" />
+      <option name="presentableId" value="LOCAL−00014" />
+      <updated>1713988418792</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -234,6 +243,7 @@
     <MESSAGE value="- Overhauled design and added image upload functionality + changes to details page + moved pagination and search functionalities to backend" />
     <MESSAGE value="- Added readme" />
     <MESSAGE value="- fixed typo" />
-    <option name="LAST_COMMIT_MESSAGE" value="- fixed typo" />
+    <MESSAGE value="- Modified search and sort to use Predicates, added lombok," />
+    <option name="LAST_COMMIT_MESSAGE" value="- Modified search and sort to use Predicates, added lombok," />
   </component>
 </project>

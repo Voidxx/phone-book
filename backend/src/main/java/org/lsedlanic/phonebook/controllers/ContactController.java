@@ -42,13 +42,12 @@ public class ContactController {
         contactValidator.validate(contact, bindingResult);
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body(bindingResult.getAllErrors());
-        } else {
+        }
             try {
                 return ResponseEntity.ok(contactService.addContact(contact));
             } catch (Exception e) {
                 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to add contact");
             }
-        }
     }
 
     @PutMapping("/{id}")
@@ -56,15 +55,14 @@ public class ContactController {
         contactValidator.validate(contact, bindingResult);
         if (bindingResult.hasErrors()) {
             return ResponseEntity.badRequest().body(bindingResult.getAllErrors());
-        } else {
-            try {
-                Contact updatedContact = contactService.updateContact(id, contact);
-                return updatedContact != null ?
-                        ResponseEntity.ok(updatedContact) :
-                        ResponseEntity.notFound().build();
-            } catch (Exception e) {
-                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update contact");
-            }
+        }
+        try {
+            Contact updatedContact = contactService.updateContact(id, contact);
+            return updatedContact != null ?
+                    ResponseEntity.ok(updatedContact) :
+                    ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update contact");
         }
     }
     @DeleteMapping("/{id}")

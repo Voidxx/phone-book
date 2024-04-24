@@ -60,5 +60,5 @@ The project uses MongoDB as the database. You can run the database using Docker 
 `docker-compose up -d`
 
 
-This will start the MongoDB container and expose it on `localhost:27017`.
+This will start the MongoDB container and expose it on `localhost:27017`. The application configuration automatically finds the database on that port.
 
