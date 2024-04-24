@@ -5,7 +5,7 @@ const ContactModalContent = ({ onSubmit, initialContact = null }) => {
         oib: '',
         firstName: '',
         lastName: '',
-        adress: '',
+        address: '',
         city: '',
         phoneNumber: '',
     });
@@ -49,9 +49,9 @@ const ContactModalContent = ({ onSubmit, initialContact = null }) => {
                 className="form-input"
             />
             <input
-                name="adress"
+                name="address"
                 placeholder="Address"
-                value={contact.adress}
+                value={contact.address}
                 onChange={handleInputChange}
                 required
                 className="form-input"

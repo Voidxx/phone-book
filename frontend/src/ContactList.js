@@ -10,7 +10,7 @@ const ContactList = () => {
         oib: '',
         firstName: '',
         lastName: '',
-        adress: '',
+        address: '',
         city: '',
         phoneNumber: '',
     });
@@ -104,7 +104,7 @@ const ContactList = () => {
                 oib: '',
                 firstName: '',
                 lastName: '',
-                adress: '',
+                address: '',
                 city: '',
                 phoneNumber: '',
             });

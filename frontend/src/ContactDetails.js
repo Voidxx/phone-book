@@ -103,7 +103,7 @@ const ContactDetails = () => {
                     <strong>OIB:</strong> {contact.oib}
                 </p>
                 <p>
-                    <strong>Address:</strong> {contact.adress}
+                    <strong>Address:</strong> {contact.address}
                 </p>
                 <p>
                     <strong>City:</strong> {contact.city}

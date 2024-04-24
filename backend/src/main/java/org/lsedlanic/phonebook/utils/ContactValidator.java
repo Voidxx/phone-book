@@ -28,7 +28,7 @@ public class ContactValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "Last name is required");
         System.out.println("Last name required validation: " + errors.hasErrors());
 
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "adress", "Address is required");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "address", "Address is required");
         System.out.println("Address required validation: " + errors.hasErrors());
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "city", "City is required");

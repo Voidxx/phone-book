@@ -1,79 +1,23 @@
 package org.lsedlanic.phonebook.entities;
 
+import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 
 @Document(collection = "contacts")
+@Data
 public class Contact {
     @Id
     private String id;
     private Long oib;
     private String firstName;
     private String lastName;
-    private String adress;
+    private String address;
     private String city;
     private String phoneNumber;
 
     private byte[] image;
 
-    public Long getOib() {
-        return oib;
-    }
 
-    public String getId(){
-        return id;
-    }
-
-    public void setOib(Long oib) {
-        this.oib = oib;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getAdress() {
-        return adress;
-    }
-
-    public void setAdress(String adress) {
-        this.adress = adress;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
 }

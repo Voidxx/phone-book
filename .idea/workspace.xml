@@ -4,11 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="54422e19-cf60-4782-8c9e-5d35af5c3ecf" name="Changes" comment="- Overhauled design and added image upload functionality + changes to details page + moved pagination and search functionalities to backend">
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    <list default="true" id="54422e19-cf60-4782-8c9e-5d35af5c3ecf" name="Changes" comment="- Added readme">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/README.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/org/lsedlanic/phonebook/entities/Contact.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/org/lsedlanic/phonebook/entities/Contact.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/org/lsedlanic/phonebook/services/ContactService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/org/lsedlanic/phonebook/services/ContactService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/src/main/java/org/lsedlanic/phonebook/utils/ContactValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/org/lsedlanic/phonebook/utils/ContactValidator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/ContactDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/ContactDetails.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/ContactList.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/ContactList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/ContactModalContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/ContactModalContent.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -110,7 +115,7 @@
       <workItem from="1713885911747" duration="1331000" />
       <workItem from="1713887833209" duration="855000" />
       <workItem from="1713955497908" duration="1194000" />
-      <workItem from="1713971829976" duration="441000" />
+      <workItem from="1713971829976" duration="5311000" />
     </task>
     <task id="LOCAL−00001" summary="- Added web config for CORS&#10;- Added rest of the CRUD operations without design&#10;- Added HTTP responses to most requests">
       <option name="closed" value="true" />
@@ -182,7 +187,14 @@
       <option name="presentableId" value="LOCAL−00010" />
       <updated>1713888048747</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL−00011" summary="- Added readme">
+      <option name="closed" value="true" />
+      <created>1713972297326</created>
+      <option name="number" value="LOCAL−00011" />
+      <option name="presentableId" value="LOCAL−00011" />
+      <updated>1713972297326</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -205,6 +217,7 @@
     <MESSAGE value="- Added some validation and additional design for frontend" />
     <MESSAGE value="- Modified the validation to use Spring validator instead of javax.validator and alerts on frontend" />
     <MESSAGE value="- Overhauled design and added image upload functionality + changes to details page + moved pagination and search functionalities to backend" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Overhauled design and added image upload functionality + changes to details page + moved pagination and search functionalities to backend" />
+    <MESSAGE value="- Added readme" />
+    <option name="LAST_COMMIT_MESSAGE" value="- Added readme" />
   </component>
 </project>

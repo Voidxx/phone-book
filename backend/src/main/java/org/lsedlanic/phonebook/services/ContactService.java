@@ -51,7 +51,7 @@ public class ContactService {
             contact.setOib(updatedContact.getOib());
             contact.setFirstName(updatedContact.getFirstName());
             contact.setLastName(updatedContact.getLastName());
-            contact.setAdress(updatedContact.getAdress());
+            contact.setAddress(updatedContact.getAddress());
             contact.setCity(updatedContact.getCity());
             contact.setPhoneNumber(updatedContact.getPhoneNumber());
             contact.setImage(updatedContact.getImage());
@@ -78,7 +78,7 @@ public class ContactService {
                         contact.getOib(),
                         contact.getFirstName(),
                         contact.getLastName(),
-                        contact.getAdress(),
+                        contact.getAddress(),
                         contact.getCity(),
                         contact.getPhoneNumber()));
                 writer.newLine();
@@ -103,7 +103,7 @@ public class ContactService {
                     contact.setOib(Long.parseLong(data[0].trim()));
                     contact.setFirstName(data[1].trim());
                     contact.setLastName(data[2].trim());
-                    contact.setAdress(data[3].trim());
+                    contact.setAddress(data[3].trim());
                     contact.setCity(data[4].trim());
                     contact.setPhoneNumber(data[5].trim());
                     contacts.add(contact);
@@ -151,7 +151,7 @@ public class ContactService {
                 .filter(contact -> {
                     String searchString = contact.getFirstName().toLowerCase() + " " +
                             contact.getLastName().toLowerCase() + " " +
-                            contact.getAdress().toLowerCase() + " " +
+                            contact.getAddress().toLowerCase() + " " +
                             contact.getCity().toLowerCase() + " " +
                             contact.getPhoneNumber().toLowerCase();
                     return pattern.matcher(searchString).find();
