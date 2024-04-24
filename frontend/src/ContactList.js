@@ -58,7 +58,7 @@ const ContactList = () => {
 
     const fetchContacts = async () => {
         try {
-            const response = await axios.get(`http://localhost:8080/api/contacts?query=${searchQuery}&page=${page}&size=${size}&sortField=${sortField}&sortOrder=${sortOrder}`);
+            const response = await axios.get(`http://localhost:8080/api/contacts?query=${searchQuery}&page=${page}&size=${size}&sort=${sortField},${sortOrder}`);
             setContacts(response.data.content);
             setTotalPages(response.data.totalPages);
 

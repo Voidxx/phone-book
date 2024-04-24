@@ -1,14 +1,12 @@
 package org.lsedlanic.phonebook.services;
 
+import com.querydsl.core.types.dsl.BooleanExpression;
 import org.lsedlanic.phonebook.entities.Contact;
+import org.lsedlanic.phonebook.entities.QContact;
 import org.lsedlanic.phonebook.repositories.ContactRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Query;
-import org.springframework.data.mongodb.core.query.TextCriteria;
-import org.springframework.data.mongodb.core.query.TextQuery;
 import org.springframework.stereotype.Service;
 
 import java.io.BufferedReader;
@@ -17,12 +15,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.io.IOException;
-import java.util.regex.Pattern;
-import java.util.stream.Collectors;
+
 
 
 @Service
@@ -100,7 +96,7 @@ public class ContactService {
                 String[] data = line.split(",");
                 if (data.length == 6) {
                     Contact contact = new Contact();
-                    contact.setOib(Long.parseLong(data[0].trim()));
+                    contact.setOib(data[0].trim());
                     contact.setFirstName(data[1].trim());
                     contact.setLastName(data[2].trim());
                     contact.setAddress(data[3].trim());
@@ -118,51 +114,17 @@ public class ContactService {
         }
     }
 
-    public List<Contact> getSortedContacts(String sortField, String sortOrder) {
-        List<Contact> contacts = getAllContacts();
-
-        Comparator<Contact> comparator = switch (sortField.toLowerCase()) {
-            case "lastname" -> Comparator.comparing(Contact::getLastName);
-            case "phonenumber" -> Comparator.comparing(Contact::getPhoneNumber);
-            default -> Comparator.comparing(Contact::getFirstName);
-        };
-
-        if (sortOrder.equalsIgnoreCase("desc")) {
-            comparator = comparator.reversed();
-        }
-
-        contacts.sort(comparator);
-        return contacts;
+    public Page<Contact> getContactsPage(String query, Pageable pageable) {
+        return contactRepository.findAll(getPredicate(query), pageable);
     }
 
-    public Page<Contact> getContactsPage(int page, int size, String sortField, String sortOrder) {
-        Sort sort = Sort.by(sortOrder.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC, sortField);
-        Pageable pageable = PageRequest.of(page, size, sort);
-        return contactRepository.findAll(pageable);
+    private BooleanExpression getPredicate(String query){
+        QContact contact = QContact.contact;
+        return contact.firstName.containsIgnoreCase(query)
+                .or(contact.lastName.containsIgnoreCase(query))
+                .or(contact.city.containsIgnoreCase(query))
+                .or(contact.address.containsIgnoreCase(query))
+                .or(contact.phoneNumber.containsIgnoreCase(query));
     }
-
-    public Page<Contact> searchContacts(String query, int page, int size, String sortField, String sortOrder) {
-        Sort sort = Sort.by(sortOrder.equalsIgnoreCase("desc") ? Sort.Direction.DESC : Sort.Direction.ASC, sortField);
-        Pageable pageable = PageRequest.of(page, size, sort);
-        List<Contact> allContacts = contactRepository.findAll();
-        Pattern pattern = Pattern.compile(".*" + query.toLowerCase() + ".*");
-
-        List<Contact> contacts = allContacts.stream()
-                .filter(contact -> {
-                    String searchString = contact.getFirstName().toLowerCase() + " " +
-                            contact.getLastName().toLowerCase() + " " +
-                            contact.getAddress().toLowerCase() + " " +
-                            contact.getCity().toLowerCase() + " " +
-                            contact.getPhoneNumber().toLowerCase();
-                    return pattern.matcher(searchString).find();
-                })
-                .collect(Collectors.toList());
-
-        int start = (int) pageable.getOffset();
-        int end = Math.min((start + pageable.getPageSize()), contacts.size());
-        return new PageImpl<>(contacts.subList(start, end), pageable, contacts.size());
-    }
-
-
 
 }

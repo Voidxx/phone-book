@@ -10,7 +10,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Contact {
     @Id
     private String id;
-    private Long oib;
+    private String oib;
     private String firstName;
     private String lastName;
     private String address;
