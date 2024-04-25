@@ -20,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.logging.Logger;
 
 @RestController
 @RequestMapping("/api/contacts")
@@ -99,15 +100,7 @@ public class ContactController {
 
     @PostMapping("/import")
     public ResponseEntity<?> importFromCSV(@RequestParam("file") MultipartFile file) {
-        try {
-            String fileName = file.getOriginalFilename();
-            assert fileName != null;
-            file.transferTo(new File(fileName));
-            contactService.importFromCSV(fileName);
-            return ResponseEntity.ok("Contacts imported successfully");
-        } catch (IOException e) {
-            return ResponseEntity.badRequest().body("Failed to import contacts");
-        }
+       return contactService.importFromCSV(file);
     }
 
 

@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 import ContactModalContent from './ContactModalContent';
 import Modal from './Modal';
+
 
 const ContactList = () => {
     const [contacts, setContacts] = useState([]);
@@ -34,6 +35,7 @@ const ContactList = () => {
     const [page, setPage] = useState(0);
     const [size, setSize] = useState(10);
     const [totalPages, setTotalPages] = useState(0);
+
 
     const [showDropdown, setShowDropdown] = useState(false);
 
@@ -99,15 +101,7 @@ const ContactList = () => {
     const handleAddContact = async (newContact) => {
         try {
             const response = await axios.post('http://localhost:8080/api/contacts', newContact);
-            setContacts([...contacts, response.data]);
-            setNewContact({
-                oib: '',
-                firstName: '',
-                lastName: '',
-                address: '',
-                city: '',
-                phoneNumber: '',
-            });
+            await fetchContacts();
             handleCloseModal();
         } catch (error) {
             if (error.response.data) {
@@ -203,7 +197,7 @@ const ContactList = () => {
         }
     };
 
-    const handleImportContacts = async (e) => {
+    const handleImportContacts = useCallback(async (e) => {
         const file = e.target.files[0];
         if (!file) return;
 
@@ -211,21 +205,47 @@ const ContactList = () => {
         formData.append('file', file);
 
         try {
-            const response = await axios.post('http://localhost:8080/api/contacts/import', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
+            const response = await fetch('http://localhost:8080/api/contacts/import', {
+                method: 'POST',
+                body: formData,
             });
-            console.log(response.data);
-            fetchContacts();
+            const result = await response.json();
+            if (response.ok) {
+                alert('Contacts imported successfully');
+            } else {
+                if (Array.isArray(result.errors)) {
+                    const errorList = document.getElementById('error-list');
+                    errorList.innerHTML = ''; // clear previous errors
+                    result.errors.forEach((error, index) => {
+                        const errorItem = document.createElement('li');
+                        const errorCode = error.split(";")[1].split("[")[1].split(",")[0].split(".")[0];
+                        errorItem.textContent = `Line ${index + 1}: ${errorCode}`;
+                        errorList.appendChild(errorItem);
+                    });
+                } else {
+                    const errorMessage = document.createElement('p');
+                    errorMessage.textContent = result.message;
+                    document.getElementById('error-modal').appendChild(errorMessage);
+                }
+
+                document.getElementById('error-modal').style.display = 'block';
+            }
         } catch (error) {
             console.error('Error importing contacts:', error);
         }
-    };
+        e.target.value = '';
+    }, []);
 
+    document.addEventListener('DOMContentLoaded', function(){
+        document.getElementById('close-button').addEventListener('click', () => {
+            document.getElementById('error-modal').style.display = 'none';
+            document.getElementById('error-list').innerHTML = ''; // clear errors
+        });
+    });
 
 
     return (
+
         <div>
             <h1>Contact List</h1>
             <input
@@ -234,6 +254,13 @@ const ContactList = () => {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
             />
+            <div id="error-modal" className="error-dialog">
+                <div className="error-dialog-content">
+                    <h2>Import Failed</h2>
+                    <ul id="error-list"></ul>
+                    <button id="close-button" onClick={() => document.getElementById('error-modal').style.display = 'none'}>Close</button>
+                </div>
+            </div>
             <div className="actions-container">
                 <div className="sort-container">
                     <label>Sort By:</label>
@@ -267,11 +294,15 @@ const ContactList = () => {
                         <div className="dropdown-menu">
                             <button onClick={openModalForAdding}>Add Contact</button>
                             <button onClick={handleExportContacts}>Export Contacts</button>
-                            <button>
+                            <label htmlFor="import-file" className="import-file-label">
                                 Import Contacts
-                                <input type="file" id="importFile" onChange={handleImportContacts}
-                                       className="import-file"/>
-                            </button>
+                                <input
+                                    type="file"
+                                    id="import-file"
+                                    onChange={handleImportContacts}
+                                    className="import-file"
+                                />
+                            </label>
                         </div>
                     )}
                 </div>

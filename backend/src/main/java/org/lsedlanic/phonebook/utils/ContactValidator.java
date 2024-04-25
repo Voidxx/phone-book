@@ -1,6 +1,8 @@
 package org.lsedlanic.phonebook.utils;
 
 import org.lsedlanic.phonebook.entities.Contact;
+import org.lsedlanic.phonebook.repositories.ContactRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
@@ -8,6 +10,10 @@ import org.springframework.validation.Validator;
 
 @Component
 public class ContactValidator implements Validator {
+
+    @Autowired
+    private ContactRepository contactRepository;
+
     @Override
     public boolean supports(Class<?> clazz) {
         return Contact.class.equals(clazz);
@@ -16,6 +22,7 @@ public class ContactValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         Contact contact = (Contact) target;
+        String currentContactId = contact.getId();
         System.out.println("Validating OIB: " + contact.getOib());
         System.out.println("Validating Phone Number: " + contact.getPhoneNumber());
 
@@ -45,6 +52,14 @@ public class ContactValidator implements Validator {
         if (contact.getPhoneNumber() != null && !contact.getPhoneNumber().matches("\\d{10}")) {
             errors.rejectValue("phoneNumber", "Phone number must be a 10-digit number");
             System.out.println("Phone number format validation: " + errors.hasErrors());
+        }
+
+        if (contactRepository.findByOib(contact.getOib()).isPresent() && !contactRepository.findByOib(contact.getOib()).get().getId().equals(currentContactId)) {
+            errors.rejectValue("oib", "Contact with same OIB already exists");
+        }
+
+        if (contactRepository.findByPhoneNumber(contact.getPhoneNumber()).isPresent() && !contactRepository.findByPhoneNumber(contact.getPhoneNumber()).get().getId().equals(currentContactId)) {
+            errors.rejectValue("phoneNumber", "Contact with same phone number already exists");
         }
     }
 }
