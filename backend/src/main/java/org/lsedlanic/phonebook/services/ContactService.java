@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.Files;
@@ -74,7 +75,8 @@ public class ContactService {
         List<Contact> contacts = getAllContacts();
         Path filePath = Paths.get(fileName);
 
-        try (BufferedWriter writer = Files.newBufferedWriter(filePath)) {
+        try (BufferedWriter writer = Files.newBufferedWriter(filePath, StandardCharsets.UTF_8)) {
+            writer.write("\uFEFF");
             writer.write("OIB,First Name,Last Name,Address,City,Phone Number,Image");
             writer.newLine();
 
@@ -98,11 +100,12 @@ public class ContactService {
     public ResponseEntity<String> importFromCSV(MultipartFile file) {
         List<String> errorMessages = new ArrayList<>();
 
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream(), StandardCharsets.UTF_8))) {
             reader.readLine();
-
+            int lineNumber = 1;
             String line;
             while ((line = reader.readLine()) != null) {
+                lineNumber++;
                 String[] data = line.split(",");
                 if (data.length == 7) {
                     Contact contact = new Contact();
@@ -120,7 +123,7 @@ public class ContactService {
                     BindingResult bindingResult = new BeanPropertyBindingResult(contact, "contact");
                     contactValidator.validate(contact, bindingResult);
                     if (bindingResult.hasErrors()) {
-                        errorMessages.add("Error importing contact: " + bindingResult.getAllErrors());
+                        errorMessages.add("Error importing contact on line " + lineNumber + ":" + bindingResult.getAllErrors());
                         continue;
                     }
 
@@ -139,7 +142,7 @@ public class ContactService {
                     BindingResult bindingResult = new BeanPropertyBindingResult(contact, "contact");
                     contactValidator.validate(contact, bindingResult);
                     if (bindingResult.hasErrors()) {
-                        errorMessages.add("Error importing contact: " + bindingResult.getAllErrors());
+                        errorMessages.add("Error importing contact on line " + lineNumber + ":" + bindingResult.getAllErrors());
                         continue;
                     }
 

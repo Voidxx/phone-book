@@ -4,14 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="54422e19-cf60-4782-8c9e-5d35af5c3ecf" name="Changes" comment="- Removed unnecessary stuff and updated readme">
+    <list default="true" id="54422e19-cf60-4782-8c9e-5d35af5c3ecf" name="Changes" comment="- fixed bugs with validation and importing csv, added error dialog for import">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/org/lsedlanic/phonebook/controllers/ContactController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/org/lsedlanic/phonebook/controllers/ContactController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/org/lsedlanic/phonebook/repositories/ContactRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/org/lsedlanic/phonebook/repositories/ContactRepository.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/backend/src/main/java/org/lsedlanic/phonebook/services/ContactService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/org/lsedlanic/phonebook/services/ContactService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/org/lsedlanic/phonebook/utils/ContactValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/org/lsedlanic/phonebook/utils/ContactValidator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/target/classes/org/lsedlanic/phonebook/services/ContactService.class" beforeDir="false" afterPath="$PROJECT_DIR$/backend/target/classes/org/lsedlanic/phonebook/services/ContactService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/contacts.csv" beforeDir="false" afterPath="$PROJECT_DIR$/contacts.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/frontend/src/ContactList.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/ContactList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,7 +119,7 @@
       <workItem from="1713887833209" duration="855000" />
       <workItem from="1713955497908" duration="1194000" />
       <workItem from="1713971829976" duration="12200000" />
-      <workItem from="1714030740829" duration="10009000" />
+      <workItem from="1714030740829" duration="13097000" />
     </task>
     <task id="LOCAL−00001" summary="- Added web config for CORS&#10;- Added rest of the CRUD operations without design&#10;- Added HTTP responses to most requests">
       <option name="closed" value="true" />
@@ -228,7 +226,21 @@
       <option name="presentableId" value="LOCAL−00015" />
       <updated>1713989997581</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL−00016" summary="- fixed bugs with validation and importing csv, added error dialog for import">
+      <option name="closed" value="true" />
+      <created>1714042757030</created>
+      <option name="number" value="LOCAL−00016" />
+      <option name="presentableId" value="LOCAL−00016" />
+      <updated>1714042757031</updated>
+    </task>
+    <task id="LOCAL−00017" summary="- fixed bugs with validation and importing csv, added error dialog for import">
+      <option name="closed" value="true" />
+      <created>1714042816816</created>
+      <option name="number" value="LOCAL−00017" />
+      <option name="presentableId" value="LOCAL−00017" />
+      <updated>1714042816816</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -255,6 +267,7 @@
     <MESSAGE value="- fixed typo" />
     <MESSAGE value="- Modified search and sort to use Predicates, added lombok," />
     <MESSAGE value="- Removed unnecessary stuff and updated readme" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Removed unnecessary stuff and updated readme" />
+    <MESSAGE value="- fixed bugs with validation and importing csv, added error dialog for import" />
+    <option name="LAST_COMMIT_MESSAGE" value="- fixed bugs with validation and importing csv, added error dialog for import" />
   </component>
 </project>

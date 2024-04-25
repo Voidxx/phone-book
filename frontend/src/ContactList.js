@@ -215,11 +215,12 @@ const ContactList = () => {
             } else {
                 if (Array.isArray(result.errors)) {
                     const errorList = document.getElementById('error-list');
-                    errorList.innerHTML = ''; // clear previous errors
+                    errorList.innerHTML = ''
                     result.errors.forEach((error, index) => {
                         const errorItem = document.createElement('li');
+                        const errorLine = error.split(":")[0];
                         const errorCode = error.split(";")[1].split("[")[1].split(",")[0].split(".")[0];
-                        errorItem.textContent = `Line ${index + 1}: ${errorCode}`;
+                        errorItem.textContent = `${errorLine} - ${errorCode}`;
                         errorList.appendChild(errorItem);
                     });
                 } else {
@@ -227,7 +228,7 @@ const ContactList = () => {
                     errorMessage.textContent = result.message;
                     document.getElementById('error-modal').appendChild(errorMessage);
                 }
-
+                fetchContacts();
                 document.getElementById('error-modal').style.display = 'block';
             }
         } catch (error) {
@@ -309,7 +310,7 @@ const ContactList = () => {
             </div>
             <div className="contact-list-container">
                 {contacts.map((contact) => (
-                    <div className="contact-card">
+                    <div className="contact-card" key={contact.id}>
                         <Link key={contact.id} to={`/contacts/${contact.id}`} className="contact-link">
                             <div className="contact-avatar">
                                 {getInitials(contact)}
