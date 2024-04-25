@@ -4,15 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="54422e19-cf60-4782-8c9e-5d35af5c3ecf" name="Changes" comment="- Removed unnecessary stuff and updated readme">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/org/lsedlanic/phonebook/controllers/ContactController.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/org/lsedlanic/phonebook/controllers/ContactController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/org/lsedlanic/phonebook/repositories/ContactRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/org/lsedlanic/phonebook/repositories/ContactRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/org/lsedlanic/phonebook/services/ContactService.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/org/lsedlanic/phonebook/services/ContactService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/backend/src/main/java/org/lsedlanic/phonebook/utils/ContactValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/backend/src/main/java/org/lsedlanic/phonebook/utils/ContactValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/ContactList.js" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/ContactList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/styles.css" afterDir="false" />
-    </list>
+    <list default="true" id="54422e19-cf60-4782-8c9e-5d35af5c3ecf" name="Changes" comment="- fixed some bugs" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -43,29 +35,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Maven.backend [clean,install].executor": "Run",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "Spring Boot.PhonebookApplication.executor": "Run",
-    "extract.method.default.visibility": "private",
-    "git-widget-placeholder": "master",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "project.propCompiler",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Maven.backend [clean,install].executor&quot;: &quot;Run&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;Spring Boot.PhonebookApplication.executor&quot;: &quot;Run&quot;,
+    &quot;extract.method.default.visibility&quot;: &quot;private&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;project.propCompiler&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\petra\Tasks\phonebook" />
@@ -121,7 +113,8 @@
       <workItem from="1713887833209" duration="855000" />
       <workItem from="1713955497908" duration="1194000" />
       <workItem from="1713971829976" duration="12200000" />
-      <workItem from="1714030740829" duration="10009000" />
+      <workItem from="1714030740829" duration="13335000" />
+      <workItem from="1714046103473" duration="43000" />
     </task>
     <task id="LOCAL−00001" summary="- Added web config for CORS&#10;- Added rest of the CRUD operations without design&#10;- Added HTTP responses to most requests">
       <option name="closed" value="true" />
@@ -228,7 +221,35 @@
       <option name="presentableId" value="LOCAL−00015" />
       <updated>1713989997581</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL−00016" summary="- fixed bugs with validation and importing csv, added error dialog for import">
+      <option name="closed" value="true" />
+      <created>1714042757030</created>
+      <option name="number" value="LOCAL−00016" />
+      <option name="presentableId" value="LOCAL−00016" />
+      <updated>1714042757031</updated>
+    </task>
+    <task id="LOCAL−00017" summary="- fixed bugs with validation and importing csv, added error dialog for import">
+      <option name="closed" value="true" />
+      <created>1714042816816</created>
+      <option name="number" value="LOCAL−00017" />
+      <option name="presentableId" value="LOCAL−00017" />
+      <updated>1714042816816</updated>
+    </task>
+    <task id="LOCAL−00018" summary="- fixed some bugs">
+      <option name="closed" value="true" />
+      <created>1714045947079</created>
+      <option name="number" value="LOCAL−00018" />
+      <option name="presentableId" value="LOCAL−00018" />
+      <updated>1714045947080</updated>
+    </task>
+    <task id="LOCAL−00019" summary="- fixed some bugs">
+      <option name="closed" value="true" />
+      <created>1714046131143</created>
+      <option name="number" value="LOCAL−00019" />
+      <option name="presentableId" value="LOCAL−00019" />
+      <updated>1714046131144</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -255,6 +276,8 @@
     <MESSAGE value="- fixed typo" />
     <MESSAGE value="- Modified search and sort to use Predicates, added lombok," />
     <MESSAGE value="- Removed unnecessary stuff and updated readme" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Removed unnecessary stuff and updated readme" />
+    <MESSAGE value="- fixed bugs with validation and importing csv, added error dialog for import" />
+    <MESSAGE value="- fixed some bugs" />
+    <option name="LAST_COMMIT_MESSAGE" value="- fixed some bugs" />
   </component>
 </project>
